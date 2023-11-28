@@ -1,0 +1,130 @@
+.noGapBottom {
+  margin-bottom: 0px;
+}
+
+.mainButton {
+  cursor: pointer;
+  display: inline-flex;
+  appearance: none;
+  align-items: center;
+  -webkit-box-align: center;
+  justify-content: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  font-weight: 600;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-duration: 200ms;
+  height: 3rem;
+  min-width: 3rem;
+  font-size: 1rem;
+  background: #e5e5ea;
+  background-image: linear-gradient(to left, #cc25b3 0%, #418dff 101.52%);
+  color: #fff;
+  width: 180px;
+  text-align: center;
+  border-radius: 9999px;
+  border-style: none;
+}
+
+.mainButton:hover {
+  opacity: 0.8;
+}
+
+.pink {
+  color: #cc25b3;
+}
+
+.title {
+  margin-bottom: 0px;
+}
+
+.explain {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.secondaryButton {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.container {
+  margin-top: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  padding: 0 24px;
+}
+
+.divider {
+  width: 50%;
+  border-color: grey;
+  opacity: 0.25;
+  margin-bottom: 2rem;
+}
+
+.holderGrid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1%;
+  width: 600px;
+  max-width: 95vw;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.spacerBottom {
+  margin-bottom: 16px;
+}
+
+.claimGrid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  gap: 2%;
+}
+
+.textInput {
+  width: 75%;
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius: 8px;
+  color: #fff;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 1rem;
+}
+
+.holderItem {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 16px;
+  width: 100%;
+  padding: 16px;
+}
+
+/* On mobile: */
+@media only screen and (max-width: 850px) {
+  .claimGrid {
+    flex-direction: column;
+    width: 99vw;
+    gap: 2%;
+  }
+
+  .textInput {
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+}
