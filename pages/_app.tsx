@@ -6,7 +6,7 @@ import "../styles/globals.css";
 import { AppProps } from "next/app";
 
 // This is the chain your dApp will work on.
-const activeChain = "mumbai";
+const activeChain = "sepolia";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
