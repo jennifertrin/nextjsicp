@@ -4,9 +4,9 @@ import Head from "next/head";
 import ThirdwebGuideFooter from "../components/guide/ThirdwebGuideFooter";
 import "../styles/globals.css";
 import { AppProps } from "next/app";
+import { Sepolia } from "@thirdweb-dev/chains";
 
-// This is the chain your dApp will work on.
-const activeChain = "sepolia";
+const activeChain = Sepolia;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

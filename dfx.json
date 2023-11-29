@@ -1,0 +1,11 @@
+{
+    "canisters": {
+      "erc20icp": {
+        "frontend": {
+          "entrypoint": "pages/_app.tsx"
+        },
+        "source": [".next"],
+        "type": "assets"
+      }
+    }
+}
