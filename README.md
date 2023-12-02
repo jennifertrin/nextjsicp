@@ -1,106 +1,134 @@
-# Token Drop Example
+# How to deploy a NextJS app on-chain
 
-## Introduction
+This article provides an overview of how to deploy a NextJS React frontend application on-chain. The example deploys a token drop starter application built using the [Thirdweb SDK](https://thirdweb.com/) onto the [Internet Computer](https://internetcomputer.org/). 
 
-In this guide, we will utilize the [**Token Drop**](https://portal.thirdweb.com/contracts/token-drop) contract to release ERC-20 tokens!
+>> Note: Don’t just stop there though! You can deploy a full-stack application with a backend and frontend on the Internet Computer. Check out our documentation to learn more: [https://internetcomputer.org/docs](https://internetcomputer.org/docs)
 
-We also utilize the token drop's [claim phases](https://portal.thirdweb.com/pre-built-contracts/token-drop#setting-claim-phases) feature, to release the tokens for a price, and only allow a certain amount to be claimed per wallet.
+## Why Deploy On-Chain
+Deploying an application on-chain unlocks various use cases that are not achievable if deployed on a centralized server such as Vercel or Netlify.
 
-**Check out the Demo here**: https://token-drop.thirdweb-example.com/
+### Governance
+Multiple contributors develop applications with community organizations such as decentralized autonomous organizations (DAOs). By deploying an application on-chain, DAOs can require multiple contributors or community members to review and approve the update before it goes live.
 
-## Tools:
+DAOs can establish different types of reviews based on membership. For example, only members who are certified developers can review code quality while members who are focused on marketing and content can review content and UX.
 
-- [**thirdweb Token Drop**](https://portal.thirdweb.com/contracts/token-drop): thirdweb's Token Drop contract is a way of releasing your ERC20 tokens!
+Think of it as **on-chain peer reviews.**
 
-- [**thirdweb React SDK**](https://docs.thirdweb.com/react): To connect to our NFT Collection Smart contract via React hooks such as [useTokenDrop](https://docs.thirdweb.com/react/react.usetokendrop), connect user's wallets, and other awesome hooks like [useActiveClaimCondition](https://docs.thirdweb.com/react/react.useactiveclaimcondition) and [useClaimIneligibilityReasons](https://docs.thirdweb.com/react/react.useclaimineligibilityreasons).
+### Own Your Website
+We currently own cryptocurrency and NFTs on the blockchain. The Internet Computer smart contracts can store up to 96 GB of stable memory, allowing for the storage of new larger types of data and applications on-chain. 
 
-- [**thirdweb TypeScript SDK**](https://docs.thirdweb.com/typescript): To claim/mint tokens from the token drop with [.claim](https://portal.thirdweb.com/pre-built-contracts/token-drop#claiming-tokens) , view token balance with [.balanceOf](https://portal.thirdweb.com/pre-built-contracts/token-drop#token-balance), and transfer tokens with [.transfer](https://portal.thirdweb.com/pre-built-contracts/token-drop#transfer-tokens).
+Think of websites as a **new asset class on the blockchain**. 
 
-## Using This Repo
+## Tutorial 
 
-- Create a Token Drop contract via the thirdweb dashboard on the Mumbai test network.
+### Your NextJS Project
+This tutorial assumes that you already have a NextJS application that you would like to deploy on-chain.
 
-- Create a project using this example by running:
+We are deploying this [ERC-20 Token Drop starter project](https://github.com/thirdweb-example/token-drop) from ThirdWeb.
 
-```bash
+You can run this command to create a project from this same starter project. 
+
+```
 npx thirdweb create --template token-drop
 ```
 
-- Replace our demo token drop contract address (`0x9b896fecf1885ee01f1abf829e32dd4257cf6140`) with your token drop contract address!
+Make sure to choose NextJS and Typescript as options. 
 
-# Guide
+### Download and start DFX
 
-## Configuring the ThirdwebProvider
+[DFX](https://internetcomputer.org/docs/current/references/cli-reference/) is the command-line execution environment that serves as the primary tool for creating, deploying, and managing dapps on the Internet Computer. 
 
-The thirdweb provider is a wrapper around our whole application.
+Run the following commands to install and run DFX.
 
-It allows us to access all of the React SDK's helpful hooks anywhere in our application.
+```
+sh -ci "$(curl -fsSL https://smartcontracts.org/install.sh)"
+dfx --version
+dfx start --background
 
-```jsx
-// This is the chain your dApp will work on.
-const activeChainId = "sepolia";
+```
+For more information on how to install DFX, please check out [this link](https://support.dfinity.org/hc/en-us/articles/10552713577364-How-do-I-install-dfx-).
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <ThirdwebProvider desiredChainId={activeChainId}>
-      <Component {...pageProps} />
-    </ThirdwebProvider>
-  );
+### Build your NextJS application
+
+You must also generate and point the static files of a properly-built NextJS application for deployment on the Internet Computer.
+
+In order to generate the static files of a NextJS application, add this to your ```next.config.js``` file:
+
+```
+output: 'export'
+```
+Your next.config.js file should look similar to this. Please note that you may have existing settings that you should avoid overriding. 
+
+```
+const nextConfig = {
+  output: 'export',
+};
+```
+Build your NextJS application by running the following command:
+
+```npx run build```
+
+This should now generate an ```out``` folder which consists of the static assets that make up the website.
+
+In the next step, we will instruct the Internet Computer to deploy the website on-chain using these static files. 
+
+When deploying on the Internet Computer, these static files are not public to anyone including the nodes. Only the WASM file which is a binary instruction file which does not leak any of your code is public to nodes. 
+
+### Create a dfx.json file
+In the top-level directory of your repository, at the source of add a ```dfx.json``` file.
+
+Add this to the file.
+
+```
+{
+    "canisters": {
+      "erc20icp": {
+        "frontend": {
+          "entrypoint": "out/index.html"
+        },
+        "source": ["out"],
+        "type": "assets"
+      }
+    }
 }
 ```
+Please note that you can adjust the following:
 
-## Connecting User's Wallets
+**erc20icp** - name of the canister smart contract
 
-We use the [useMetamask](https://portal.thirdweb.com/react/react.usemetamask) hook to connect with user's wallets.
+Also, make sure that these do point to the correct file:
 
-```jsx
-const connectWithMetamask = useMetamask();
-
-// ...
-<button onClick={connectWithMetamask}>Connect with Metamask</button>;
+```
+"entrypoint": "out/index.html"
 ```
 
-## Getting the token drop contract
+and folder:
 
-We use the [useContract](https://docs.thirdweb.com/react/react.useContract) hook to get the token drop contract:
-
-```jsx
-const { contract: tokenDropContract } = useContract(
-  "0x5ec440E5965da9570CAa66402980c6D20cbe0663",
-  "token-drop"
-);
+```
+ "source": ["out"],
 ```
 
-## Claiming Tokens
+### Run dfx generate
 
-We use the `claim` function and pass in the desired amount of tokens to claim inside a `Web3Button` component:
+Run the following command to generate the correct types.
 
-We store a value the user types into an input field in state:
-
-```jsx
-const [amountToClaim, setAmountToClaim] = useState("");
-
-// ...
-
-<div className={styles.claimGrid}>
-  <input
-    type="text"
-    placeholder="Enter amount to claim"
-    onChange={(e) => setAmountToClaim(e.target.value)}
-    className={`${styles.textInput} ${styles.noGapBottom}`}
-  />
-  <Web3Button
-    colorMode="dark"
-    contractAddress="0x5ec440E5965da9570CAa66402980c6D20cbe0663"
-    action={(contract) => contract.erc20.claim(amountToClaim)}
-    onSuccess={() => alert("Claimed!")}
-    onError={(err) => alert(err)}
-  >
-    Claim Tokens
-  </Web3Button>
-</div>;
+```
+dfx generate
 ```
 
-## Join our Discord!
+### Deploy application to the Internet Computer
 
-For any questions, suggestions, join our discord at [https://discord.gg/cd thirdweb](https://discord.gg/thirdweb).
+
+Run the following command to deploy the NextJS application locally:
+
+```
+dfx deploy
+```
+
+Run the following command to deploy the NextJS application on the Internet Computer mainnet or production:
+
+```
+dfx deploy --network ic
+```
+
+After running this command, you will see a generated link where you can navigate to your NextJS application.
