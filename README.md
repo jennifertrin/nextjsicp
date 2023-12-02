@@ -44,7 +44,6 @@ Run the following commands to install and run DFX.
 sh -ci "$(curl -fsSL https://smartcontracts.org/install.sh)"
 dfx --version
 dfx start --background
-
 ```
 For more information on how to install DFX, please check out [this link](https://support.dfinity.org/hc/en-us/articles/10552713577364-How-do-I-install-dfx-).
 
@@ -75,9 +74,7 @@ In the next step, we will instruct the Internet Computer to deploy the website o
 When deploying on the Internet Computer, these static files are not public to anyone including the nodes. Only the WASM file which is a binary instruction file which does not leak any of your code is public to nodes. 
 
 ### Create a dfx.json file
-In the top-level directory of your repository, at the source of add a ```dfx.json``` file.
-
-Add this to the file.
+In the top-level directory of your repository, at the source of add a ```dfx.json``` file and add the following:
 
 ```
 {
@@ -88,16 +85,18 @@ Add this to the file.
         },
         "source": ["out"],
         "type": "assets"
-      }
+      },
+      "output_env_file": ".env"
     }
 }
 ```
+```dfx.json``` is the configuration file for deploying all of your code to canister smart contracts on the Internet Computer mainnet or production environment.
+
 Please note that you can adjust the following:
 
 **erc20icp** - name of the canister smart contract
 
 Also, make sure that these do point to the correct file:
-
 ```
 "entrypoint": "out/index.html"
 ```
@@ -125,7 +124,7 @@ Run the following command to deploy the NextJS application locally:
 dfx deploy
 ```
 
-Run the following command to deploy the NextJS application on the Internet Computer mainnet or production:
+Run the following command to deploy the NextJS application on the Internet Computer mainnet or production environment:
 
 ```
 dfx deploy --network ic
