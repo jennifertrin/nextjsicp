@@ -2,9 +2,9 @@
     "canisters": {
       "erc20icp": {
         "frontend": {
-          "entrypoint": "pages/_app.tsx"
+          "entrypoint": "out/index.html"
         },
-        "source": [".next"],
+        "source": ["out"],
         "type": "assets"
       }
     }
