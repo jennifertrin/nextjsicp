@@ -1,6 +1,6 @@
-# How to deploy a NextJS app on-chain
+# How to deploy a Next.js app on-chain
 
-This article provides an overview of how to deploy a NextJS React frontend application on-chain. The example deploys a token drop starter application built using the [Thirdweb SDK](https://thirdweb.com/) onto the [Internet Computer](https://internetcomputer.org/). 
+This article provides an overview of how to deploy a Next.js React frontend application on-chain. The example deploys a token drop starter application built using the [Thirdweb SDK](https://thirdweb.com/) onto the [Internet Computer](https://internetcomputer.org/). 
 
 >> Note: Don’t just stop there though! You can deploy a full-stack application with a backend and frontend on the Internet Computer. Check out our documentation to learn more: [https://internetcomputer.org/docs](https://internetcomputer.org/docs)
 
@@ -21,8 +21,8 @@ Think of websites as a **new asset class on the blockchain**.
 
 ## Tutorial 
 
-### Your NextJS Project
-This tutorial assumes that you already have a NextJS application that you would like to deploy on-chain.
+### Your Next.js Project
+This tutorial assumes that you already have a Next.js application that you would like to deploy on-chain.
 
 We are deploying this [ERC-20 Token Drop starter project](https://github.com/thirdweb-example/token-drop) from ThirdWeb.
 
@@ -32,7 +32,7 @@ You can run this command to create a project from this same starter project.
 npx thirdweb create --template token-drop
 ```
 
-Make sure to choose NextJS and Typescript as options. 
+Make sure to choose Next.js and Typescript as options. 
 
 ### Download and start DFX
 
@@ -47,11 +47,11 @@ dfx start --background
 ```
 For more information on how to install DFX, please check out [this link](https://support.dfinity.org/hc/en-us/articles/10552713577364-How-do-I-install-dfx-).
 
-### Build your NextJS application
+### Build your Next.js application
 
-You must also generate and point the static files of a properly-built NextJS application for deployment on the Internet Computer.
+You must also generate and point the static files of a properly-built Next.js application for deployment on the Internet Computer.
 
-In order to generate the static files of a NextJS application, add this to your ```next.config.js``` file:
+In order to generate the static files of a Next.js application, add this to your ```next.config.js``` file:
 
 ```
 output: 'export'
@@ -63,7 +63,7 @@ const nextConfig = {
   output: 'export',
 };
 ```
-Build your NextJS application by running the following command:
+Build your Next.js application by running the following command:
 
 ```npx run build```
 
@@ -118,16 +118,16 @@ dfx generate
 ### Deploy application to the Internet Computer
 
 
-Run the following command to deploy the NextJS application locally:
+Run the following command to deploy the Next.js application locally:
 
 ```
 dfx deploy
 ```
 
-Run the following command to deploy the NextJS application on the Internet Computer mainnet or production environment:
+Run the following command to deploy the Next.js application on the Internet Computer mainnet or production environment:
 
 ```
 dfx deploy --network ic
 ```
 
-After running this command, you will see a generated link where you can navigate to your NextJS application.
+After running this command, you will see a generated link where you can navigate to your Next.js application.
