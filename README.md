@@ -85,9 +85,9 @@ In the top-level directory of your repository, at the source of add a ```dfx.jso
         },
         "source": ["out"],
         "type": "assets"
-      },
-      "output_env_file": ".env"
-    }
+      }
+    },
+    "output_env_file": ".env"
 }
 ```
 ```dfx.json``` is the configuration file for deploying all of your code to canister smart contracts on the Internet Computer mainnet or production environment.
