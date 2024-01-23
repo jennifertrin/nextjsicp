@@ -2,7 +2,7 @@
 
 This article provides an overview of how to deploy a Next.js React frontend application on-chain. The example deploys a token drop starter application built using the [Thirdweb SDK](https://thirdweb.com/) onto the [Internet Computer](https://internetcomputer.org/). 
 
->> Note: Don’t just stop there though! You can deploy a full-stack application with a backend and frontend on the Internet Computer. Check out our documentation to learn more: [https://internetcomputer.org/docs](https://internetcomputer.org/docs)
+> Note: Don’t just stop there though! You can deploy a full-stack application with a backend and frontend on the Internet Computer. Check out our documentation to learn more: [https://internetcomputer.org/docs](https://internetcomputer.org/docs)
 
 ## Why Deploy On-Chain
 Deploying an application on-chain unlocks various use cases that are not achievable if deployed on a centralized server such as Vercel or Netlify.
@@ -10,7 +10,7 @@ Deploying an application on-chain unlocks various use cases that are not achieva
 ### Governance
 Multiple contributors develop applications with community organizations such as decentralized autonomous organizations (DAOs). By deploying an application on-chain, DAOs can require multiple contributors or community members to review and approve the update before it goes live.
 
-DAOs can establish different types of reviews based on membership. For example, only members who are certified developers can review code quality while members who are focused on marketing and content can review content and UX.
+DAOs can establish different types of reviews based on membership. For example, only certified developers can review code quality while members focused on marketing and content can review content and UX.
 
 Think of it as **on-chain peer reviews.**
 
@@ -51,7 +51,7 @@ For more information on how to install DFX, please check out [this link](https:/
 
 You must also generate and point the static files of a properly-built Next.js application for deployment on the Internet Computer.
 
-In order to generate the static files of a Next.js application, add this to your ```next.config.js``` file:
+To generate the static files of a Next.js application, add this to your ```next.config.js``` file:
 
 ```
 output: 'export'
@@ -71,7 +71,7 @@ This should now generate an ```out``` folder which consists of the static assets
 
 In the next step, we will instruct the Internet Computer to deploy the website on-chain using these static files. 
 
-When deploying on the Internet Computer, these static files are not public to anyone including the nodes. Only the WASM file which is a binary instruction file which does not leak any of your code is public to nodes. 
+When deploying on the Internet Computer, these static files are not public to anyone including the nodes. Only the WASM file which is a binary instruction file that does not leak any of your code is public to nodes. 
 
 ### Create a dfx.json file
 In the top-level directory of your repository, at the source of add a ```dfx.json``` file and add the following:
